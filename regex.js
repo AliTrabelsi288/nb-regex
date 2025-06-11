@@ -20,6 +20,10 @@ function problem1(){
 }
 
 function problem2() {
+    /*
+        Group solution
+    */
+    const regex = /^1?\s?\(?(\d{3})\)?[-\s]?\d{3}[-\s]?\d{4}/;
 
     const testCases = [
         "415-555-1234",     // 415
@@ -30,6 +34,10 @@ function problem2() {
         "1 416 555 9292"    // 416
     ];
 
+    for (const str of testCases) {
+        const match = str.match(regex);
+        console.log(`${str}: area code = ${match[1]}`);
+    }
 }
 
 function problem3(){
