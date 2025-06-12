@@ -1,1 +1,37 @@
-this is a test
+Real life regex problem for you guys to solve: 
+Event 1: 
+json_data_0_cpu:0.2761248389085
+json_data_0_disk:13345169408
+json_data_0_id:node/pve
+json_data_0_level:
+json_data_0_maxcpu:56
+json_data_0_maxdisk:100861726720
+json_data_0_maxmem:270348513280
+json_data_0_mem:194802704384
+json_data_0_node:pve
+json_data_0_ssl_fingerprint:C5:7C:D3:F4:01:96:9F:9F:30:0C:60:8F:BA:F4:4E:1A:64:81:18:82:7E:8E:CC:A0:DE:B1:EF:0C:A0:C8:14:84
+json_data_0_status:online
+json_data_0_type:node
+json_data_0_uptime:1586441
+ 
+Event 2: 
+json_data_agent:1
+json_data_blockstat_virtio0_account_failed:true
+json_data_blockstat_virtio0_account_invalid:true
+json_data_blockstat_virtio0_failed_flush_operations:0
+json_data_blockstat_virtio0_failed_rd_operations:0
+json_data_blockstat_virtio0_failed_unmap_operations:0
+json_data_blockstat_virtio0_failed_wr_operations:0
+json_data_blockstat_virtio0_failed_zone_append_operations:0
+json_data_blockstat_virtio0_flush_operations:37821230
+json_data_blockstat_virtio0_flush_total_time_ns:2167051820358
+json_data_blockstat_virtio0_idle_time_ns:27270
+json_data_blockstat_virtio0_invalid_flush_operations:0
+json_data_blockstat_virtio0_invalid_rd_operations:0
+json_data_blockstat_virtio0_invalid_unmap_operations:0
+json_data_blockstat_virtio0_invalid_wr_operations:0
+ 
+I want to remove the json_data_ prefix, however, sometimes it has a random digit at the end, which can be up to two characters, what regex would you write to capture both events? 
+
+answer:
+const a = /json_data_+(?:_\d{1,2}_+)?/;
