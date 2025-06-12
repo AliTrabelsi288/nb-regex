@@ -52,9 +52,6 @@ function problem4(){
 
 }
 
-problem2();
-
-
 
 /*
     REGEX in JS Exercises on RegexExercises
