@@ -1,3 +1,4 @@
+const fs = require('fs');
 /*
     Pure REGEX excersises on RegexOne
 */
@@ -150,4 +151,26 @@ function TwosComplement() {
     console.log(result.join(' '));
 }
 
-TwosComplement();
+/*
+    arrow shaft must be just dashes, single head >, double fletching >>, total 6/8 units
+*/
+function FletchersAssistant(){
+    const input = fs.readFileSync("FletchersAssisstant.txt", "utf8").split(/\s+/);
+
+    const result = [];
+
+    const regex = /^>>-{3,5}>$/;
+
+    let lineNumber = 1;
+
+    for (let arrow of input){
+        if(!regex.test(arrow)){
+            result.push(lineNumber);
+        }
+        lineNumber++;
+    }
+    console.log(result.join(' '));
+    
+}
+
+FletchersAssistant();
