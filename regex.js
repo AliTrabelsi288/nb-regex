@@ -107,6 +107,7 @@ function HowOdd(){
 
     for(let entry of inputSplit){
         const last = entry.endsWith('1');
+
         if(last){
             result.push(entry);
         }
@@ -115,4 +116,38 @@ function HowOdd(){
     console.log(result.join(' '));
 }
 
-HowOdd();
+/*
+    If byte begins with 1, it is negative. If begins with 0, number is positive
+    Convert all negatibe bytes to their positive counterpart using twos complement (subract one from number and flip all bits)
+    ie flip everything, apart from least significant 1.
+*/
+function TwosComplement() {
+    const input = "00001001 10111110 01101001 01100101 00101011 01101110 01001011 10000110 11110011 01111100 11010000 11100110 01110110 11111111 01010101 00111011 11011011 10110100 11111001 10001011 01100110 10111100 01001000 00001111 00100101 10100001 00111100 11001100 10100110 00011101 10000101 10111110 00011111 01100100 11100010 01011011 01110110 00011100 00011011 10101100 01010111 11110110 01000000 00000110 11000010 01011111 01010001 00011111 10011011 00011100 10010110 11000010 10110000 11000001 00001010 00100111 00010011 11010011 11101111 11110100 11111001 01101001 01000111 01001111 01000011 00100101 11110001 00111111 00100110 10111000 11111011 10010000 10100010 01101101 01000111 11111011 10110111 00000000 11111100 01100011 01010111 01101000 01010001 10110100 11011011 11100010 00010000 10001011 11011111 10001100 10111100 10010101 11101101 00000010 11100100 11110101 11101000 00101101 11000100 00100100";
+    const inputSplit = input.split(/\s+/);
+    const result = [];
+
+    for (let entry of inputSplit) {
+        const isNegative = entry.startsWith('1');
+
+        if (isNegative) {
+            // convert string to int and subtract 1, then convert back to string and ensure has original length of 8
+            let binaryNum = parseInt(entry, 2) - 1;
+            let binaryStr = binaryNum.toString(2).padStart(8, '0');
+
+            // convert 0 to temporary x value first, as if turn 1 to 0 will be fine, but if then turn 0 to 1 after will also flip all new 1's as well
+            // so turn all 0's to x first, then flip all 1's to 0, finally turn all tem x's(0's) to 1's
+            let flipped = binaryStr
+                .replace(/0/g, 'x') 
+                .replace(/1/g, '0')
+                .replace(/x/g, '1');
+
+            result.push(flipped);
+        } else {
+            result.push(entry); 
+        }
+    }
+
+    console.log(result.join(' '));
+}
+
+TwosComplement();
