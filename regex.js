@@ -190,3 +190,19 @@ function FletchersApprentice() {
   fs.writeFileSync("FletchersApprenticeOutput.txt", arrow.join('\n'), "utf8");
 }
 
+/*
+    process stream of event user info / each has a timestamp grouped with [] and followed by new lines
+    need to extract uniqueID for each user, each event may have username, UUID, email or HEX (0x) 
+    if event has username, use this as ID / if not extract from email
+*/
+function IdentifyUsers() {
+  const input = fs.readFileSync("Users.txt", "utf8");
+
+  const ids = [...input.matchAll( //as matchAll returns Iterator object, so ... converts iterable into array so can use .map and .filter
+    /\[\d{1,2}\/\d{1,2}\/\d{4},\s\d{1,2}:\d{2}:\d{2}\s(?:AM|PM)\](?:[\s\S]*?)(?:(?<=\n)(?!.*@|.*0x|.*\b[a-f0-9\-]{36}\b)([\w.-]{3,})|[^\n]*\n([a-zA-Z0-9._%+-]+)@)/g    //very long lol
+  )].map(([, user, email]) => user || email).filter(Boolean);
+
+  fs.writeFileSync("IdentifiedUsers.txt", ids.join('\n'), "utf8");
+}
+
+IdentifyUsers();
