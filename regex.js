@@ -173,4 +173,20 @@ function FletchersAssistant(){
     
 }
 
-FletchersAssistant();
+/*
+    same rules apply for assisstant, however if whole shaft too wide (=) can clip down to -/ and if more than 2 fletchings can clip down to just 2
+    return list of arrows which meet rules
+*/
+
+function FletchersApprentice() {
+  const input = fs.readFileSync("FletchersApprentice.txt", "utf8");
+
+  const valid = input.match(/>>([-|=])\1{3,5}>/g);
+
+  const arrow = valid
+    .map(arrow => arrow
+    .replace(/=/g, '-'));
+
+  fs.writeFileSync("FletchersApprenticeOutput.txt", arrow.join('\n'), "utf8");
+}
+
